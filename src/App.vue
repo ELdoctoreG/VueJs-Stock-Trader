@@ -1,36 +1,35 @@
 <template>
-  <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-app-bar>
+  <!-- App.vue -->
 
+  <v-app>
+
+    <app-header></app-header>
+
+
+    <!-- Sizes your content based upon application components -->
     <v-content>
-      <HelloWorld/>
+
+      <!-- Provides the application the proper gutter -->
+      <v-container>
+
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
     </v-content>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld';
 
+<script>
+import Header from "./components/Header.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-  },
-  data: () => ({
-    //
-  }),
+    appHeader: Header
+  }
 };
 </script>
