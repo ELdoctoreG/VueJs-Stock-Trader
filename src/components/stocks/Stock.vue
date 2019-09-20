@@ -10,35 +10,54 @@
 
       <v-card-actions>
         <div class="pull-left">
-          <v-text-field label="Quantity" v-model="quantity"></v-text-field>
+          <v-text-field label="Quantity" v-model="quantity" ></v-text-field>
         </div>
         <v-spacer></v-spacer>
-        <v-btn @click="buyStock" class="float-right" color="primary" :disabled="quantity <= 0"
-               large>Buy</v-btn>
+        <v-btn
+          @click="buyStock"
+          class="float-right"
+          color="primary"
+          :disabled="insufficientFunds || quantity <= 0"
+          large
+          >{{ insufficientFunds ? 'Insufficient Funds' : 'Buy' }}</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-col>
 </template>
 
+<style scoped>
 
+</style>
 <script>
-  export default {
-    props: ['stock'],
-    data () {
-      return {
-        quantity: 0
-      }
+export default {
+  props: ["stock"],
+  data() {
+    return {
+      quantity: 0
+    };
+  },
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
     },
-    methods: {
-      buyStock() {
-        const order = {
-          stockID: this.stock.id,
-          stockPrice: this.stock.price,
-          quantity: this.quantity,
-        };
-        console.log(order);
-        this.quantity = 0;
-      }
+    insufficientFunds() {
+      return this.quantity * this.stock.price > this.funds;
+    },
+    // validNumber() {
+    //   return !Number.isInteger(0);
+    // }
+  },
+  methods: {
+    buyStock() {
+      const order = {
+        stockID: this.stock.id,
+        stockPrice: this.stock.price,
+        quantity: this.quantity
+      };
+      this.$store.dispatch("buyStock", order);
+      this.quantity = 0;
     }
   }
+};
 </script>
