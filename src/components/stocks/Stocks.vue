@@ -2,7 +2,7 @@
 
     <v-container class="pa-2" fluid>
         <v-row>
-            <app-stock v-for="stock in stocks">{{ stock }}</app-stock>
+            <app-stock v-for="stock in stocks" :stock="stock">{{ stock }}</app-stock>
         </v-row>
     </v-container>
 
